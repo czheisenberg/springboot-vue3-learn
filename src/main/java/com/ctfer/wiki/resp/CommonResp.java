@@ -1,10 +1,10 @@
 package com.ctfer.wiki.resp;
 
 public class CommonResp<T> {
+//    通用的返回类型 CommonResp, 以后所有后端接口的返回值全部都是 CommonResp 类型
     /**
     *
     * 业务上的成功或失败
-    *
     * */
     private boolean success = true;
 
@@ -17,7 +17,6 @@ public class CommonResp<T> {
     * 返回泛型数据，自定义类型
     * */
     private T content;
-
     // ex
 //    {
 //        success:true,
