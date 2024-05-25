@@ -9,6 +9,7 @@ import com.ctfer.wiki.util.CopyUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,11 @@ public class EbookService {
         EbookExample.Criteria criteria = ebookExample.createCriteria();
 
         // adnNameLike like模糊匹配
-        criteria.andNameLike("%"+req.getName()+"%");
+//        if() 判断请求内容是否为空,为空返回true, !则false不执行里面
+        if(!ObjectUtils.isEmpty(req.getId())){
+            criteria.andNameLike("%"+req.getName()+"%");
+        }
+
 
          List<Ebook> ebooklist = ebookMapper.selectByExample(ebookExample);
 
