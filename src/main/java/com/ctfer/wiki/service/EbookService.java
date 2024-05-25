@@ -5,6 +5,7 @@ import com.ctfer.wiki.domain.EbookExample;
 import com.ctfer.wiki.mapper.EbookMapper;
 import com.ctfer.wiki.req.EbookReq;
 import com.ctfer.wiki.resp.EbookResp;
+import com.ctfer.wiki.util.CopyUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,12 +29,18 @@ public class EbookService {
 
          List<Ebook> ebooklist = ebookMapper.selectByExample(ebookExample);
 
-        List<EbookResp> respList = new ArrayList<>();
-        for(Ebook ebook : ebooklist){
-              EbookResp ebookResp = new EbookResp();
-            BeanUtils.copyProperties(ebook, ebookResp);
-            respList.add(ebookResp);
-        }
-        return respList;
+//        List<EbookResp> respList = new ArrayList<>();
+//        for(Ebook ebook : ebooklist){
+////            EbookResp ebookResp = new EbookResp();
+////            BeanUtils.copyProperties(ebook, ebookResp);
+//              // 对象复制
+//            EbookResp ebookResp = CopyUtil.copy(ebook, EbookResp.class);
+//
+//            respList.add(ebookResp);
+//        }
+//        列表复制
+        List<EbookResp> list = CopyUtil.copyList(ebooklist, EbookResp.class);
+
+        return list;
     }
 }
