@@ -128,7 +128,7 @@ export default defineComponent({
     // onMounted()是一个生命周期函数
     onMounted(()=>{
       console.log("onMounted")
-      axios.get(process.env.VUE_APP_SERVER + "/ebook/list").then((response)=>{
+      axios.get("/ebook/list").then((response)=>{
         // data, content 可以在 console.log(response)中看到结构
         const data = response.data
         // ref()需要.value 来接受值
