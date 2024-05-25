@@ -121,19 +121,16 @@ const actions: Record<string, any>[] = [
 export default defineComponent({
   name: 'HomeView',
   setup(){
-    console.log("setup");
     const ebooks = ref()
-
 
     // onMounted()是一个生命周期函数
     onMounted(()=>{
-      console.log("onMounted")
       axios.get("/ebook/list").then((response)=>{
         // data, content 可以在 console.log(response)中看到结构
         const data = response.data
         // ref()需要.value 来接受值
         ebooks.value = data.content
-        console.log(response);
+        // console.log(response); // axios拦截器会返回
       });
     });
 
