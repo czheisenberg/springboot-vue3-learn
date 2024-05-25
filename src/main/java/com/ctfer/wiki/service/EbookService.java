@@ -26,8 +26,8 @@ public class EbookService {
         EbookExample.Criteria criteria = ebookExample.createCriteria();
 
         // adnNameLike like模糊匹配
-//        if() 判断请求内容是否为空,为空返回true, !则false不执行里面
-        if(!ObjectUtils.isEmpty(req.getId())){
+//        if(...) 判断是否存在name参数,存在返回true否则返回false, !-> 不为空则返回对应查询的数据，为空返回所有数据
+        if(!ObjectUtils.isEmpty(req.getName())){
             criteria.andNameLike("%"+req.getName()+"%");
         }
 

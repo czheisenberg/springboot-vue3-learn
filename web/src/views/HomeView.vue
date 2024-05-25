@@ -51,11 +51,10 @@
       :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
   >
 
-    <a-list  item-layout="vertical" size="large"  :grid="{ gutter: 20, column: 4 }"  :data-source="ebooks">
+    <a-list  item-layout="vertical" size="large"  :grid="{ gutter: 20, column: 5 }"  :data-source="ebooks">
       <template #footer>
         <div>
-          <b>ant design vue</b>
-          footer part
+          <b>books</b>
         </div>
       </template>
       <template #renderItem="{ item }">
@@ -129,7 +128,7 @@ export default defineComponent({
     // onMounted()是一个生命周期函数
     onMounted(()=>{
       console.log("onMounted")
-      axios.get("http://localhost:9999/ebook/list?name=").then((response)=>{
+      axios.get("http://localhost:9999/ebook/list").then((response)=>{
         // data, content 可以在 console.log(response)中看到结构
         const data = response.data
         // ref()需要.value 来接受值
@@ -150,3 +149,16 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped>
+  .ant-avatar {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 8%;
+    margin: 5px 0;
+  }
+
+</style>
+
+
