@@ -50,6 +50,20 @@
 			<version>4.0.1</version>
 			<scope>provided</scope>
 		</dependency>
+
+<!--		AOP-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+
+<!--		fastjson-->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.70</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
