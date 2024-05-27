@@ -6,6 +6,10 @@ import com.ctfer.wiki.mapper.EbookMapper;
 import com.ctfer.wiki.req.EbookReq;
 import com.ctfer.wiki.resp.EbookResp;
 import com.ctfer.wiki.util.CopyUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +20,7 @@ import java.util.List;
 
 @Service
 public class EbookService {
+    private static final Logger LOG = LoggerFactory.getLogger(EbookService.class);
 
     @Autowired
     private EbookMapper ebookMapper;
@@ -32,7 +37,15 @@ public class EbookService {
         }
 
 
-         List<Ebook> ebooklist = ebookMapper.selectByExample(ebookExample);
+        //        PageHelper.startPge(1,3) 分页从第1页开始，每页3条，注意：只会查询与它紧挨着的第一个sql查询，若有其他查询，将失效
+        PageHelper.startPage(1, 3);
+        List<Ebook> ebooklist = ebookMapper.selectByExample(ebookExample);
+
+        PageInfo<Ebook> pageInfo = new PageInfo<>(ebooklist); // 3. ebooklist
+        LOG.info("总条数: {}", pageInfo.getTotal());   // 4.getTotal()
+        LOG.info("总页数: {}", pageInfo.getPages());
+//        分页的四个要素 PageHelper.startPage(1, 3)中的：1.开始页数，2.每页页数
+//        3. ebooklist, 4. getTotal()
 
 //        List<EbookResp> respList = new ArrayList<>();
 //        for(Ebook ebook : ebooklist){
