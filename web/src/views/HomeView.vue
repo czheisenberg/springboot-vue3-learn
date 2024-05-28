@@ -51,7 +51,7 @@
       :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
   >
 
-    <a-list  item-layout="vertical" size="large"  :grid="{ gutter: 20, column: 5 }"  :data-source="ebooks">
+    <a-list  item-layout="vertical" size="large"  :grid="{ gutter: 20, column: 3 }"  :data-source="ebooks">
       <template #footer>
         <div>
           <b>books</b>
