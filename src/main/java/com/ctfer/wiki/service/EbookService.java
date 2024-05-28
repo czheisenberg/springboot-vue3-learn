@@ -11,6 +11,7 @@ import com.ctfer.wiki.util.CopyUtil;
 import com.ctfer.wiki.util.SnowFlake;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import jakarta.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class EbookService {
     @Autowired
     private EbookMapper ebookMapper;
 
-    @Autowired
+    @Resource
     private SnowFlake snowFlake;
 
     public PageResp<EbookQueryResp> list(EbookQueryReq req){
@@ -74,11 +75,15 @@ public class EbookService {
         if(ObjectUtils.isEmpty(req.getId())){
             // 如果 id 为空则是新增数据
 //            使用雪花算法生成的ID
-            ebook.setId(snowFlake.nextId());
+            ebook.setId(snowFlake.nextId());  // 测试发现此id有问题，插入多条数据后获取的id值与数据库中不一样
             ebookMapper.insert(ebook);
         }else {
             // 否则是更新数据
             ebookMapper.updateByPrimaryKey(ebook);
         }
+    }
+//    删除方法
+    public void delete(Long id){
+        ebookMapper.deleteByPrimaryKey(id);
     }
 }

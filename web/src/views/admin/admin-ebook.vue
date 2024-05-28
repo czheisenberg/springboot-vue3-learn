@@ -11,7 +11,7 @@
     </p>
       <a-table
           :columns="columns"
-          :row-key="record => record.id"
+
           :data-source="ebooks"
           :pagination="pagination"
           :loading="loading"
@@ -26,7 +26,7 @@
             <a-button type="primary" @click="edit(record)">
               编辑
             </a-button>
-            <a-button danger block>
+            <a-button danger @click="handleDelete(record.id)">
               删除
             </a-button>
           </a-space>
@@ -190,6 +190,22 @@ export default defineComponent({
       modalVisible.value = true;
       ebook.value = {};
     };
+    /**
+     * 删除
+     * */
+    const handleDelete = (id: number) =>{
+      axios.delete("/ebook/delete/" + id).then((response)=>{
+        const data = response.data;
+        console.log("delete id:", id);
+        if(data.success){
+          handleQuery({
+            page: pagination.value.current,
+            size: pagination.value.pageSize
+          });
+        }
+      });
+    };
+
 
     onMounted(()=>{
       handleQuery({
@@ -212,7 +228,11 @@ export default defineComponent({
       ebook,
       modalVisible,
       modalLoading,
-      handleModalOk
+      handleModalOk,
+
+      handleDelete
+
+
     }
   }
 })

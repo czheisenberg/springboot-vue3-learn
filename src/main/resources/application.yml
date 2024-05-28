@@ -1,0 +1,4 @@
+spring:
+  jackson:
+    generator:
+      write-numbers-as-strings: true
