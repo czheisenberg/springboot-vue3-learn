@@ -4,9 +4,7 @@ import com.ctfer.wiki.domain.Ebook;
 import com.ctfer.wiki.domain.EbookExample;
 import com.ctfer.wiki.mapper.EbookMapper;
 import com.ctfer.wiki.req.EbookReq;
-import com.ctfer.wiki.req.PageReq;
 import com.ctfer.wiki.resp.EbookResp;
-import com.ctfer.wiki.resp.PageResp;
 import com.ctfer.wiki.util.CopyUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -27,7 +25,7 @@ public class EbookService {
     @Autowired
     private EbookMapper ebookMapper;
 
-    public PageResp<EbookResp> list(EbookReq req){
+    public List<EbookResp> list(EbookReq req){
         EbookExample ebookExample = new EbookExample();
         // Criteria 相当于 where条件
         EbookExample.Criteria criteria = ebookExample.createCriteria();
@@ -40,7 +38,7 @@ public class EbookService {
 
 
         //        PageHelper.startPge(1,3) 分页从第1页开始，每页3条，注意：只会查询与它紧挨着的第一个sql查询，若有其他查询，将失效
-        PageHelper.startPage(req.getPage(), req.getSize());
+        PageHelper.startPage(1, 3);
         List<Ebook> ebooklist = ebookMapper.selectByExample(ebookExample);
 
         PageInfo<Ebook> pageInfo = new PageInfo<>(ebooklist); // 3. ebooklist
@@ -58,14 +56,9 @@ public class EbookService {
 //
 //            respList.add(ebookResp);
 //        }
-
-
 //        列表复制
         List<EbookResp> list = CopyUtil.copyList(ebooklist, EbookResp.class);
 
-        PageResp<EbookResp> pageResp = new PageResp();
-        pageResp.setTotal(pageInfo.getTotal());
-        pageResp.setList(list);
-        return pageResp;
+        return list;
     }
 }

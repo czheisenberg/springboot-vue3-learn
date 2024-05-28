@@ -1,8 +1,6 @@
 package com.ctfer.wiki.req;
 
-import com.github.pagehelper.Page;
-
-public class EbookReq extends PageReq {
+public class EbookReq {
     private Long id;
 
     private String name;
