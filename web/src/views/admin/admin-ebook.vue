@@ -26,9 +26,17 @@
             <a-button type="primary" @click="edit(record)">
               编辑
             </a-button>
-            <a-button danger @click="handleDelete(record.id)">
-              删除
-            </a-button>
+<!--            a-popconfirm 气泡确认框 -->
+            <a-popconfirm
+                title="是否确认删除？删除后不可恢复！谨慎操作！"
+                ok-text="是"
+                cancel-text="否"
+                @confirm="handleDelete(record.id)"
+            >
+              <a-button danger>
+                删除
+              </a-button>
+            </a-popconfirm>
           </a-space>
         </template>
       </a-table>
