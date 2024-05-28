@@ -7,6 +7,7 @@ import com.ctfer.wiki.resp.EbookQueryResp;
 import com.ctfer.wiki.resp.PageResp;
 import com.ctfer.wiki.service.EbookService;
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,7 +19,7 @@ public class EbookController {
 
 //    list 查询
    @GetMapping("/list")
-    public CommonResp list(EbookQueryReq req){   // EbookReq req请求参数
+    public CommonResp list(@Valid EbookQueryReq req){   // EbookReq req请求参数, @Valid 表示开启校验规则
        CommonResp<PageResp<EbookQueryResp>> resp = new CommonResp<>();
        PageResp<EbookQueryResp> list = ebookService.list(req);
        resp.setContent(list);
