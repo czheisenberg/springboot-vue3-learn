@@ -3,20 +3,19 @@ package com.ctfer.wiki.service;
 import com.ctfer.wiki.domain.Ebook;
 import com.ctfer.wiki.domain.EbookExample;
 import com.ctfer.wiki.mapper.EbookMapper;
-import com.ctfer.wiki.req.EbookReq;
-import com.ctfer.wiki.resp.EbookResp;
+import com.ctfer.wiki.req.EbookQueryReq;
+import com.ctfer.wiki.req.EbookSaveReq;
+import com.ctfer.wiki.resp.EbookQueryResp;
 import com.ctfer.wiki.resp.PageResp;
 import com.ctfer.wiki.util.CopyUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,7 +25,7 @@ public class EbookService {
     @Autowired
     private EbookMapper ebookMapper;
 
-    public PageResp<EbookResp> list(EbookReq req){
+    public PageResp<EbookQueryResp> list(EbookQueryReq req){
         EbookExample ebookExample = new EbookExample();
         // Criteria 相当于 where条件
         EbookExample.Criteria criteria = ebookExample.createCriteria();
@@ -58,10 +57,22 @@ public class EbookService {
 //            respList.add(ebookResp);
 //        }
 //        列表复制
-        List<EbookResp> list = CopyUtil.copyList(ebooklist, EbookResp.class);
-        PageResp<EbookResp> pageResp = new PageResp();
+        List<EbookQueryResp> list = CopyUtil.copyList(ebooklist, EbookQueryResp.class);
+        PageResp<EbookQueryResp> pageResp = new PageResp();
         pageResp.setTotal(pageInfo.getTotal());
         pageResp.setList(list);
         return pageResp;
+    }
+
+    // 保存方法
+    public void save(EbookSaveReq req){
+        Ebook ebook = CopyUtil.copy(req, Ebook.class);
+        if(ObjectUtils.isEmpty(req.getId())){
+            // 如果 id 为空则是新增数据
+            ebookMapper.insert(ebook);
+        }else {
+            // 否则是更新数据
+            ebookMapper.updateByPrimaryKey(ebook);
+        }
     }
 }

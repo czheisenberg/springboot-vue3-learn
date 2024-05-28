@@ -53,7 +53,7 @@
         <a-input v-model:value="ebook.category1Id" />
       </a-form-item>
       <a-form-item label="描述">
-        <a-input v-model:value="ebook.desc" type="text" />
+        <a-input v-model:value="ebook.description" type="text" />
       </a-form-item>
 
     </a-form>
@@ -94,7 +94,7 @@ export default defineComponent({
       },
       {
         title: '分类',
-        slots: { customRender: 'category1Id' }
+        dataIndex: 'category1Id'
       },
       {
         title: '文档数',
@@ -109,7 +109,7 @@ export default defineComponent({
         dataIndex: 'voteCount'
       },
       {
-        title: 'Action',
+        title: '操作',
         key: 'action',
         slots: { customRender: 'action' }
       }
@@ -151,10 +151,25 @@ export default defineComponent({
     const modalLoading = ref(false);
     const handleModalOk = () =>{
       modalLoading.value = true;
-      setTimeout(()=>{
-        modalVisible.value = false;
-        modalLoading.value = false;
-      },2000);
+      // 调用 ebook/save
+      axios.post("/ebook/save", ebook.value).then((response)=>{
+        const data = response.data; // data = commonResp
+        console.log("save data: ", response.data);
+        console.log("ebook.value: ",ebook.value);
+        if(data.success){
+          // 成功后就关闭修改的弹窗页面
+          modalVisible.value = false;
+          modalLoading.value = false;
+
+          // 重新加载数据
+          handleQuery({
+            // page, size 必须和PageReq.java中变量名一样才能接收到数据
+            //  current 当前页
+            page: pagination.value.current,
+            size: pagination.value.pageSize,
+          });
+        }
+      });
     };
     // 编辑
     const edit = (record: any)=>{
@@ -168,7 +183,6 @@ export default defineComponent({
         // page, size 必须和PageReq.java中变量名一样才能接收到数据
         page: 1,
         size: pagination.value.pageSize,
-
       });
     });
 
