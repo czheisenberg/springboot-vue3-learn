@@ -8,6 +8,7 @@ import com.ctfer.wiki.req.EbookSaveReq;
 import com.ctfer.wiki.resp.EbookQueryResp;
 import com.ctfer.wiki.resp.PageResp;
 import com.ctfer.wiki.util.CopyUtil;
+import com.ctfer.wiki.util.SnowFlake;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
@@ -24,6 +25,9 @@ public class EbookService {
 
     @Autowired
     private EbookMapper ebookMapper;
+
+    @Autowired
+    private SnowFlake snowFlake;
 
     public PageResp<EbookQueryResp> list(EbookQueryReq req){
         EbookExample ebookExample = new EbookExample();
@@ -69,6 +73,8 @@ public class EbookService {
         Ebook ebook = CopyUtil.copy(req, Ebook.class);
         if(ObjectUtils.isEmpty(req.getId())){
             // 如果 id 为空则是新增数据
+//            使用雪花算法生成的ID
+            ebook.setId(snowFlake.nextId());
             ebookMapper.insert(ebook);
         }else {
             // 否则是更新数据
