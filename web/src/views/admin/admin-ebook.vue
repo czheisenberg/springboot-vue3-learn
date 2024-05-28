@@ -21,7 +21,7 @@
             <a-button type="primary">
               编辑
             </a-button>
-            <a-button type="danger">
+            <a-button danger block>
               删除
             </a-button>
           </a-space>
@@ -65,7 +65,7 @@ export default defineComponent({
       },
       {
         title: '分类',
-        slots: { customRender: 'category' }
+        slots: { customRender: 'category1Id' }
       },
       {
         title: '文档数',
@@ -91,7 +91,12 @@ export default defineComponent({
      * */
     const handleQuery = (params: any)=>{
       loading.value = true;
-      axios.get("/ebook/list", {params: params}).then((response)=>{
+      axios.get("/ebook/list", {
+        params:{
+          page: params.page,
+          size: params.size
+        }
+      }).then((response)=>{
         loading.value = false;
         const data = response.data;
         ebooks.value = data.content.list;
@@ -104,7 +109,7 @@ export default defineComponent({
     /**
      * 表格点击页码时触发
      * */
-    const handleTableChage = (pagination: any) => {
+    const handleTableChange = (pagination: any) => {
       console.log("看看自带的分页参数都有啥: " + pagination);
       handleQuery({
         page: pagination.current,
@@ -126,7 +131,7 @@ export default defineComponent({
       pagination,
       columns,
       loading,
-      handleTableChage
+      handleTableChange
     }
   }
 })
