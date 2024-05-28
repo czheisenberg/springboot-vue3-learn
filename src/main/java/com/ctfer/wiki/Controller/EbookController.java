@@ -28,7 +28,7 @@ public class EbookController {
    }
 //  save 保存
     @PostMapping("/save")
-    public CommonResp save(@RequestBody  EbookSaveReq req){   // EbookReq req请求参数 @RequestBody 表示 application/json格式的提交数据
+    public CommonResp save(@Valid @RequestBody  EbookSaveReq req){   // EbookReq req请求参数 @RequestBody 表示 application/json格式的提交数据;@Valid 表示开启校验规则
         CommonResp  resp = new CommonResp<>();
         ebookService.save(req);
 

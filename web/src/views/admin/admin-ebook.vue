@@ -90,7 +90,7 @@ export default defineComponent({
     const ebooks = ref();
     const pagination = ref({
       current: 1,
-      pageSize: 1001,
+      pageSize: 10,
       total: 0
     });
     const loading = ref(false);
@@ -170,13 +170,12 @@ export default defineComponent({
       // 调用 ebook/save
       axios.post("/ebook/save", ebook.value).then((response)=>{
         const data = response.data; // data = commonResp
-        console.log("save data: ", response.data);
-        console.log("ebook.value: ",ebook.value);
+        // console.log("save data: ", response.data);
+        // console.log("ebook.value: ",ebook.value);
+        modalLoading.value = false;
         if(data.success){
           // 成功后就关闭修改的弹窗页面
           modalVisible.value = false;
-          modalLoading.value = false;
-
           // 重新加载数据
           handleQuery({
             // page, size 必须和PageReq.java中变量名一样才能接收到数据
@@ -184,6 +183,8 @@ export default defineComponent({
             page: pagination.value.current,
             size: pagination.value.pageSize,
           });
+        }else{
+          message.error(data.message);
         }
       });
     };
