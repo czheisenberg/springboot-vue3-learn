@@ -92,18 +92,18 @@ import { StarOutlined, LikeOutlined, MessageOutlined } from '@ant-design/icons-v
 import axios from 'axios';
 
 // 前端数据
-const listData: Record<string, string>[] = [];
-for (let i = 0; i < 23; i++) {
-  listData.push({
-    href: 'https://www.antdv.com/',
-    title: `ant design vue part ${i}`,
-    avatar: 'https://joeschmoe.io/api/v1/random',
-    description:
-        'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-    content:
-        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-  });
-}
+// const listData: Record<string, string>[] = [];
+// // for (let i = 0; i < 23; i++) {
+// //   listData.push({
+// //     href: 'https://www.antdv.com/',
+// //     title: `ant design vue part ${i}`,
+// //     avatar: 'https://joeschmoe.io/api/v1/random',
+// //     description:
+// //         'Ant Design, a design language for background applications, is refined by Ant UED Team.',
+// //     content:
+// //         'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+// //   });
+// // }
 // pagination 分页
 const pagination = {
   onChange: (page: number) => {
@@ -125,11 +125,16 @@ export default defineComponent({
 
     // onMounted()是一个生命周期函数
     onMounted(()=>{
-      axios.get("/ebook/list").then((response)=>{
+      axios.get("/ebook/list",{
+        params: {
+          page: 1,
+          size: 1000
+        }
+      }).then((response)=>{
         // data, content 可以在 console.log(response)中看到结构
         const data = response.data
         // ref()需要.value 来接受值
-        ebooks.value = data.content
+        ebooks.value = data.content.list
         // console.log(response); // axios拦截器会返回
       });
     });
@@ -138,7 +143,7 @@ export default defineComponent({
       ebooks,
 
     //   返回前端页面数据
-      listData,
+    //   listData,
       pagination,
       actions
 
