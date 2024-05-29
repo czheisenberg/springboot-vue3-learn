@@ -77,7 +77,7 @@
         <a-input v-model:value="ebook.category1Id" />
       </a-form-item>
       <a-form-item label="分类二">
-        <a-input v-model:value="ebook.category1Id" />
+        <a-input v-model:value="ebook.category2Id" />
       </a-form-item>
       <a-form-item label="描述">
         <a-input v-model:value="ebook.description" type="text" />
@@ -123,8 +123,12 @@ export default defineComponent({
         dataIndex: 'name'
       },
       {
-        title: '分类',
+        title: '分类一',
         dataIndex: 'category1Id'
+      },
+      {
+        title: '分类二',
+        dataIndex: 'category2Id'
       },
       {
         title: '文档数',
