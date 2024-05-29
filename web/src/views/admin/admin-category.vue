@@ -7,7 +7,7 @@
         <a-form layout="inline" :model="param">
           <a-form-item>
             <a-button type="primary" @click="handleQuery()">
-              查询
+              刷新
             </a-button>
           </a-form-item>
           <a-form-item>
@@ -107,11 +107,11 @@ export default defineComponent({
         title: '名称',
         dataIndex: 'name'
       },
-      // {
-      //   title: '父分类',
-      //   key: 'parent',
-      //   dataIndex: 'parent'
-      // },
+      {
+        title: '父分类',
+        key: 'parent',
+        dataIndex: 'parent'
+      },
       {
         title: '顺序',
         dataIndex: 'sort'

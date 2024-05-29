@@ -3,7 +3,11 @@ package com.ctfer.wiki.domain;
 public class Category {
     private Long id;
 
+    private Long parent;
+
     private String name;
+
+    private Integer sort;
 
     public Long getId() {
         return id;
@@ -20,6 +24,21 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
+    public Long getParent() {
+        return parent;
+    }
+
+    public void setParent(Long parent) {
+        this.parent = parent;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
 
     @Override
     public String toString() {
@@ -28,7 +47,9 @@ public class Category {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", parent=").append(parent);
         sb.append(", name=").append(name);
+        sb.append(", sort=").append(sort);
         sb.append("]");
         return sb.toString();
     }
