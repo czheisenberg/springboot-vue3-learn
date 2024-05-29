@@ -19,7 +19,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/admin/ebook',
     name:"AdminEbook",
     component: () => import('../views/admin/admin-ebook.vue')
-  }
+  },
+  {
+    path: '/admin/category',
+    name: "adminCategory",
+    component: () => import('../views/admin/admin-category.vue')
+  },
 ]
 
 const router = createRouter({
