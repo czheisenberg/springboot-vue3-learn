@@ -127,23 +127,14 @@ export default defineComponent({
     };
 
     const isShowWelcome = ref(true);
-    const handleClick = (value: any) =>{
-      // console.log("menu click", value);
-      // if(value.key === 'welcome'){
-      //   isShowWelcome.value = true;
-      // }else{
-      //   isShowWelcome.value = false;
-      // }
-      isShowWelcome.value = value.key === 'welcome';
-    };
+    let categoryId2 = 0;
 
-    // onMounted()是一个生命周期函数
-    onMounted(()=>{
-      handleQueryCategory();
+    const handleQueryEbook = () =>{
       axios.get("/ebook/list",{
         params: {
           page: 1,
-          size: 1000
+          size: 1000,
+          categoryId2: categoryId2
         }
       }).then((response)=>{
         // data, content 可以在 console.log(response)中看到结构
@@ -152,6 +143,25 @@ export default defineComponent({
         ebooks.value = data.content.list
         // console.log(response); // axios拦截器会返回
       });
+    }
+
+    const handleClick = (value: any) =>{
+      // console.log("menu click", value);
+      if(value.key === 'welcome'){
+        isShowWelcome.value = true;
+      }else{
+        categoryId2 = value.key;
+        isShowWelcome.value = false;
+        handleQueryEbook();
+      }
+      // isShowWelcome.value = value.key === 'welcome';
+    };
+
+
+    // onMounted()是一个生命周期函数
+    onMounted(()=>{
+      handleQueryCategory();
+      // handleQueryEbook();
     });
 
     return{

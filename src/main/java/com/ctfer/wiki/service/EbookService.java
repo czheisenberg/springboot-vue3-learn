@@ -40,6 +40,9 @@ public class EbookService {
         if(!ObjectUtils.isEmpty(req.getName())){
             criteria.andNameLike("%"+req.getName()+"%");
         }
+        if(!ObjectUtils.isEmpty(req.getCategoryId2())){
+            criteria.andCategory2IdEqualTo(req.getCategoryId2());
+        }
 
 
         //        PageHelper.startPge(1,3) 分页从第1页开始，每页3条，注意：只会查询与它紧挨着的第一个sql查询，若有其他查询，将失效
