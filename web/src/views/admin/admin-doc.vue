@@ -71,7 +71,7 @@
           </p>
           <a-form :model="doc" layout="vertical">
             <a-form-item label="名称">
-              <a-input v-model:value="doc.name" />
+              <a-input v-model:value="doc.name" placeholder="文档名称"/>
             </a-form-item>
 
             <a-form-item label="父文档">
@@ -104,7 +104,7 @@
             <!--        </a-select>-->
             <!--      </a-form-item>-->
             <a-form-item label="顺序">
-              <a-input v-model:value="doc.sort" />
+              <a-input v-model:value="doc.sort" placeholder="顺序id,ex:1,2,3"/>
             </a-form-item>
             <a-form-item label="内容">
               <div id="content"></div>
@@ -186,16 +186,17 @@ export default defineComponent({
       loading.value = true;
       // 如果不清空现有数据，则编辑保存重新加载数据后，再点编辑，则列表显示的还是编辑前的数据
       level1.value = [];
+
       axios.get("/doc/all").then((response) => {
         loading.value = false;
         const data = response.data;
         if (data.success) {
           docs.value = data.content;
-          console.log("原始数组：", docs.value);
+          // console.log("原始数组：", docs.value);
 
           level1.value = [];
           level1.value = Tool.array2Tree(docs.value, 0);
-          console.log("树形结构：", level1);
+          // console.log("树形结构：", level1);
         } else {
           message.error(data.message);
         }
@@ -225,8 +226,8 @@ export default defineComponent({
         modalLoading.value = false;
         const data = response.data; // data = commonResp
         if (data.success) {
-          modalVisible.value = false;
-
+          // modalVisible.value = false;
+          message.success("保存成功!");
           // 重新加载列表
           handleQuery();
         } else {
@@ -245,7 +246,7 @@ export default defineComponent({
         const node = treeSelectData[i];
         if (node.id === id) {
           // 如果当前节点就是目标节点
-          console.log("disabled", node);
+          // console.log("disabled", node);
           // 将目标节点设置为disabled
           node.disabled = true;
 
@@ -318,6 +319,8 @@ export default defineComponent({
      * 编辑
      */
     const edit = (record: any) => {
+      // 编辑时情况富文本框
+      editor.txt.html((""));
       modalVisible.value = true;
       doc.value = Tool.copy(record);
 
@@ -336,6 +339,8 @@ export default defineComponent({
      * 新增
      */
     const add = () => {
+      // 编辑时情况富文本框
+      editor.txt.html((""));
       modalVisible.value = true;
       doc.value = {
         ebookId: route.query.ebookId
