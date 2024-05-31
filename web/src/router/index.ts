@@ -30,6 +30,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "AdminDoc",
     component: () => import('../views/admin/admin-doc.vue')
   },
+  {
+    path: '/doc',
+    name: 'Doc',
+    component: () =>import('../views/Doc.vue')
+  },
 ]
 
 const router = createRouter({

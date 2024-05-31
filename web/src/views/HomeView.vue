@@ -45,16 +45,11 @@
             {{ text }}
           </span>
             </template>
-            <!--          <template #extra>-->
-            <!--            <img-->
-            <!--                width="272"-->
-            <!--                alt="logo"-->
-            <!--                src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"-->
-            <!--            />-->
-            <!--          </template>-->
             <a-list-item-meta :description="item.description">
               <template #title>
-                <a :href="item.href">{{ item.name }}</a>
+                <router-link :to="'/doc?ebookId?' + item.id">
+                  {{item.name}}
+                </router-link>
               </template>
               <template #avatar><a-avatar :src="item.cover" /></template>
             </a-list-item-meta>
