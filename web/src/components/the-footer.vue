@@ -1,6 +1,6 @@
 <template>
   <a-layout-footer style="text-align: center">
-    spring boot & vue3
+    wiki
   </a-layout-footer>
 </template>
 
