@@ -19,6 +19,7 @@ public class DocController {
     @Resource
     private DocService docService;
 
+    // 查询文档,不包括content
     @GetMapping("/all")
     public CommonResp all() {
         CommonResp<List<DocQueryResp>> resp = new CommonResp<>();
@@ -26,6 +27,7 @@ public class DocController {
         resp.setContent(list);
         return resp;
     }
+
 
     @GetMapping("/list")
     public CommonResp list(@Valid DocQueryReq req) {
@@ -35,6 +37,7 @@ public class DocController {
         return resp;
     }
 
+    // 保存文档
     @PostMapping("/save")
     public CommonResp save(@Valid @RequestBody DocSaveReq req) {
         CommonResp resp = new CommonResp<>();
@@ -42,11 +45,21 @@ public class DocController {
         return resp;
     }
 
+    // 删除文档
     @DeleteMapping("/delete/{idsStr}")
     public CommonResp delete(@PathVariable String idsStr) {
         CommonResp resp = new CommonResp<>();
         List<String> list = Arrays.asList(idsStr.split(","));
         docService.delete(list);
+        return resp;
+    }
+
+    // 读取文档内容
+    @GetMapping("/find-content/{id}")
+    public CommonResp findContent(@PathVariable Long id) {
+        CommonResp<String> resp = new CommonResp<>();
+        String content = docService.findContent(id);
+        resp.setContent(content);
         return resp;
     }
 }

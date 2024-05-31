@@ -108,4 +108,13 @@ public class DocService {
         docMapper.deleteByExample(dcoExample);
     }
 
+    public String findContent(Long id){
+        Content content = contentMapper.selectByPrimaryKey(id);
+        if(ObjectUtils.isEmpty(content)){
+            // 如果本身没有content时则返回空值
+            return "";
+        }else{
+            return content.getContent();
+        }
+    }
 }
