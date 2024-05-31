@@ -3,17 +3,25 @@
     <a-layout-content :style="{background: 'fff', padding: '24px', margin: 0, minHeight: '280px'}">
       <a-row>
         <a-col :span="6">
-          <a-tree-select
-              style="width: 90%"
-              v-if="level1.length > 0"
-              :tree-data="level1"
-              @select="onSelect"
-              :replaceFields="{label: 'name',value: 'id'}"
-              tree-default-expand-all
-              :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"
-              placeholder="Please select"
-          >
-          </a-tree-select>
+<!--          <a-tree-select-->
+<!--              style="width: 90%"-->
+<!--              v-if="level1.length > 0"-->
+<!--              :tree-data="level1"-->
+<!--              @select="onSelect"-->
+<!--              :replaceFields="{label: 'name',value: 'id'}"-->
+<!--              tree-default-expand-all-->
+<!--              :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"-->
+<!--              placeholder="Please select"-->
+<!--          >-->
+<!--          </a-tree-select>-->
+              <a-tree
+                  v-if="level1.length > 0"
+                  :tree-data="level1"
+                  @select="onSelect"
+                  :replaceFields="{title: 'name', key: 'id', value: 'id'}"
+                  :defaultExpandAll="true"
+              >
+          </a-tree>
         </a-col>
         <a-col :span="18">
           <div :innerHTML="html" class="wangeditor"></div>
@@ -64,6 +72,7 @@
             level1.value = [];
             level1.value = Tool.array2Tree(docs.value, 0);
             console.log("树形结构：", level1);
+
           } else {
             message.error(data.message);
           }
