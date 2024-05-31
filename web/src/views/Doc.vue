@@ -4,7 +4,7 @@
       <a-row>
         <a-col :span="6">
           <a-tree-select
-              style="width: 30%"
+              style="width: 90%"
               v-if="level1.length > 0"
               :tree-data="level1"
               @select="onSelect"
@@ -16,6 +16,7 @@
           </a-tree-select>
         </a-col>
         <a-col :span="18">
+          <div :innerHTML="html"></div>
         </a-col>
       </a-row>
     </a-layout-content>
@@ -35,6 +36,7 @@
     setup(){
       const route = useRoute();
       const docs = ref();
+      const html = ref();
       /**
        * 一级文档树，children属性就是二级文档
        * [{
@@ -67,6 +69,27 @@
           }
         });
       };
+      /**
+       * 内容查询
+       */
+      const handleQueryContent = (id: number) => {
+        axios.get("/doc/find-content/" + id).then((response) => {
+          const data = response.data;
+          if (data.success) {
+            html.value = data.content;
+          } else {
+            message.error(data.message);
+          }
+        });
+      };
+
+      const onSelect = (selectedKeys: any, info: any)=>{
+        // console.log("selected", selectedKeys, info);
+        if(Tool.isNotEmpty(selectedKeys)){
+          // 加载内容
+          handleQueryContent(selectedKeys);
+        }
+      };
 
       onMounted(() => {
         handleQuery();
@@ -74,6 +97,8 @@
 
       return{
         level1,
+        html,
+        onSelect,
       }
     }
   })
