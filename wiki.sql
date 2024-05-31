@@ -81,3 +81,11 @@ insert into `category` (id, parent, name, sort) values(500,000,'其他',500);
 insert into `category` (id, parent, name, sort) values(501,500,'服务器',501);
 insert into `category` (id, parent, name, sort) values(502,500,'开发工具',502);
 insert into `category` (id, parent, name, sort) values(503,500,'热门服务器端语言',503);
+
+-- 文档内容
+drop table if exists `content`;
+create table `content`(
+    `id` bigint not null comment '文档id',
+    `content` mediumtext not null comment '内容',
+    primary key(`id`)
+);

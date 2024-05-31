@@ -43,9 +43,9 @@
 <!--        当数据库中创建了新表后，比如demo ，然后运行 mybatis-generator 会自动在 domain 下自动生成 Demo ，在 mapper下自动生成 DemoMapper 在 resources/mapper 下自动生成DemoMapper.xml-->
 <!--        <table tableName="demo" domainObjectName="Demo"/>-->
 <!--        <table tableName="ebook"/>-->
-        <table tableName="category"/>
+<!--        <table tableName="category"/>-->
 <!--        <table tableName="doc"/>-->
-        <!--<table tableName="content"/>-->
+        <table tableName="content"/>
         <!--<table tableName="user"/>-->
 <!--        <table tableName="ebook_snapshot"/>-->
     </context>
