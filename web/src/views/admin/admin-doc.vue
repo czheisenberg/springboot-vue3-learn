@@ -212,7 +212,7 @@ export default defineComponent({
           // 父文档下拉框初始化,相当于点击新增
           treeSelectData.value = Tool.copy(level1.value);
           // 为选择树添加一个“无”
-          // treeSelectData.value.unshift({id: 0, name: '无'})
+          treeSelectData.value.unshift({id: 0, name: '无'})
         } else {
           message.error(data.message);
         }
@@ -221,7 +221,10 @@ export default defineComponent({
 
     // -------- 表单 ---------
     const doc = ref();
-    doc.value = {};
+    // 定义doc的时候同时获取ebookId
+    doc.value = {
+      ebookId: route.query.ebookId
+    };
     const modalVisible = ref(false);
     const modalLoading = ref(false);
     // let editor: E;
