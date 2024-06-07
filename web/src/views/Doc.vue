@@ -1,6 +1,7 @@
 <template>
   <a-layout>
     <a-layout-content :style="{background: '#fff', padding: '24px', margin: 0, minHeight: '280px'}">
+      <h3 v-if="level1.length === 0">对不起,该文档暂无</h3>
       <a-row>
         <a-col :span="6">
 <!--          <a-tree-select-->
@@ -92,7 +93,8 @@
             level1.value = [];
             level1.value = Tool.array2Tree(docs.value, 0);
             // console.log("树形结构：", level1);
-            if (Tool.isNotEmpty(level1)) {
+            // level1.length>0,level1.value是一个空数组或未定义，就不会尝试访问它的第一个元素的id属
+            if (Tool.isNotEmpty(level1) && level1.value.length > 0) {
               defaultSelectedKeys.value = [level1.value[0].id];
               handleQueryContent(level1.value[0].id);
               // 初始显示文档信息
